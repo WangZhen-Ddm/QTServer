@@ -17,6 +17,6 @@ public class HelloController {
     @GetMapping("/test/hello")
     public ResultModel<String> helloWorld() {
         ResultModel<String> result = new ResultModel<>();
-        return result.sendSuccessResult("Hello world!");
+        return result.sendSuccessResult("Hello world test!");
     }
 }
