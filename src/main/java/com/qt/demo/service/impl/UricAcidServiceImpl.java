@@ -26,6 +26,6 @@ public class UricAcidServiceImpl implements UricAcidService {
         for(UricAcid uricAcid: uricAcidList) {
             uricAcidMapper.createNewUricAcidRecord(uricAcid);
         }
-        return result.sendSuccessResult("Creating new uric acid records successfully!");
+        return result.sendSuccessResult("Creating new uric acid records successfully");
     }
 }
