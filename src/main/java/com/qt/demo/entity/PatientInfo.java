@@ -43,4 +43,6 @@ public class PatientInfo {
 
     private String drinkHistory;
 
+    private String password;
+
 }

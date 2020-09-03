@@ -1,6 +1,7 @@
 package com.qt.demo.service.impl;
 
 import com.qt.demo.constant.response.ResultModel;
+import com.qt.demo.constant.utils.StringUtils;
 import com.qt.demo.dao.PatientInfoMapper;
 import com.qt.demo.entity.PatientInfo;
 import com.qt.demo.service.PatientService;
@@ -18,7 +19,7 @@ public class PatientServiceImpl implements PatientService {
     PatientInfoMapper patientInfoMapper;
 
     private boolean checkPatientExist(int patientID) {
-        PatientInfo patient = patientInfoMapper.selectPatientByPatientID(patientID);
+        PatientInfo patient = this.getPatientInfo(patientID);
         if(patient==null) return false;
         else return true;
     }
@@ -37,5 +38,27 @@ public class PatientServiceImpl implements PatientService {
                 return result.sendFailedMessage(e.getMessage());
             }
         }
+    }
+
+    @Override
+    public ResultModel<PatientInfo> patientLogin(int patientID, String password) {
+        ResultModel<PatientInfo> result = new ResultModel<>();
+        try {
+            PatientInfo patient = this.getPatientInfo(patientID);
+            if (patient == null) {
+                return result.sendFailedMessage(new Exception("没有找到患者!"));
+            }
+            if (StringUtils.stringIsBlank(password) || patient.getPassword().equals(password)) {
+                return result.sendSuccessResult(patient);
+            } else {
+                return result.sendFailedMessage("密码错误!");
+            }
+        } catch (Exception e) {
+            return result.sendFailedMessage(e.getMessage());
+        }
+    }
+
+    public PatientInfo getPatientInfo(int patientID) {
+        return patientInfoMapper.selectPatientByPatientID(patientID);
     }
 }

@@ -3,6 +3,7 @@ package com.qt.demo.dao;
 import com.qt.demo.entity.PatientInfo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +19,7 @@ public interface PatientInfoMapper {
             "values (#{patientID}, #{name}, #{age}, #{height}, #{weight}, #{sex}, #{birthPlace}, #{illnessHistory}, #{allergen}, #{bloodType}, #{smokeHistory}, #{drinkHistory})")
     void createPerson(PatientInfo patientInfo);
 
-    @Select("select * from db_patient_info where patientID = #{pateintID}")
+    @Select("select * from db_patient_info where patientID = #{patientID}")
     PatientInfo selectPatientByPatientID(int patientID);
+
 }

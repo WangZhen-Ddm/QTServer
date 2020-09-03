@@ -10,4 +10,6 @@ import com.qt.demo.entity.PatientInfo;
 public interface PatientService {
 
     ResultModel<String> createNewPatient(PatientInfo patientInfo);
+
+    ResultModel<PatientInfo> patientLogin(int patientID, String password);
 }
