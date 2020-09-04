@@ -7,6 +7,7 @@ import com.qt.demo.service.UricAcidService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -27,5 +28,15 @@ public class UricAcidServiceImpl implements UricAcidService {
             uricAcidMapper.createNewUricAcidRecord(uricAcid);
         }
         return result.sendSuccessResult("Creating new uric acid records successfully");
+    }
+
+    @Override
+    public ResultModel<List<UricAcid>> getUricAcidRecordsByTimeGap(int patientID, String startTime, String endTime) {
+        ResultModel<List<UricAcid>> result = new ResultModel<>();
+        try {
+            return result.sendSuccessResult(uricAcidMapper.getUricAcidRecordsByTimeGap(patientID, startTime, endTime));
+        } catch (Exception e) {
+            return result.sendFailedMessage(e.getMessage());
+        }
     }
 }

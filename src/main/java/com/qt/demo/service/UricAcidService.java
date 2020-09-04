@@ -3,6 +3,7 @@ package com.qt.demo.service;
 import com.qt.demo.constant.response.ResultModel;
 import com.qt.demo.entity.UricAcid;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,4 +13,6 @@ import java.util.List;
 public interface UricAcidService {
 
     ResultModel<String> createUricAcidRecords(List<UricAcid> uricAcidList);
+
+    ResultModel<List<UricAcid>> getUricAcidRecordsByTimeGap(int patientID, String startTime, String endTime);
 }
