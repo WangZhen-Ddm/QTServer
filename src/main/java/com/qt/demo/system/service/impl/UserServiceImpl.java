@@ -16,13 +16,12 @@ import java.util.List;
  * @date 2020/9/10 10:28 上午
  */
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public void save(User user) {
