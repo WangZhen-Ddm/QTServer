@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2020/7/3 9:52 上午
  */
 @RestController
-@RequestMapping("/api/ua")
+@RequestMapping("api/ua")
 @Api(tags = {"尿酸"}, value = "尿酸相关操作接口")
 public class UricAcidController {
 

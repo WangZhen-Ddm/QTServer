@@ -63,20 +63,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
-    @Bean
-    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
-        StrictHttpFirewall firewall = new StrictHttpFirewall();
-        firewall.setAllowUrlEncodedSlash(true);
-        return firewall;
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        //@formatter:off
-        super.configure(web);
-        web.httpFirewall(allowUrlEncodedSlashHttpFirewall());
-    }
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         // 设置自定义的userDetailsService以及密码编码器

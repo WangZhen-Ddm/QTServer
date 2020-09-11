@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-    @GetMapping("/test/hello")
+    @GetMapping("test/hello")
     public ResultModel<String> helloWorld() {
         ResultModel<String> result = new ResultModel<>();
         return result.sendSuccessResult("Hello world!");

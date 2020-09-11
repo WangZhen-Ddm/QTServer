@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2020/7/1 2:22 下午
  */
 @RestController
-@RequestMapping("/api/patient")
+@RequestMapping("api/patient")
 @Api(tags = {"患者"}, value = "患者相关操作接口")
 public class PatientController {
 
