@@ -13,7 +13,7 @@ public interface UserService  {
 
     User findUserByUsername(String username);
 
-    void save(User user);
+    void save(User user, boolean isAdmin);
 
     List<UserRole> getUserRolesByUsername(String username);
 }

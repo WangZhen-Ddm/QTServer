@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author Wang Zhen
  * @date 2020/7/1 11:27 上午
@@ -21,4 +23,6 @@ public interface PatientInfoMapper {
     @Select("select * from db_patient_info where patientID = #{patientID}")
     PatientInfo selectPatientByPatientID(String patientID);
 
+    @Select("select * from db_patient_info where status = 0")
+    List<PatientInfo> getPatientInfoList();
 }

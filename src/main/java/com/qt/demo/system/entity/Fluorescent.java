@@ -18,6 +18,5 @@ public class Fluorescent {
 
     private String fluorescent;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd hh:mm:ss")
     private Date measureDateTime;
 }

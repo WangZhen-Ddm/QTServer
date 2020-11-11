@@ -28,7 +28,7 @@ public class PatientController {
     }
 
     @RequestMapping(value="/wx/info", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-    @ApiOperation(httpMethod = "POST", value = "获取患者信息", notes = "验证患者用户名密码以供患者登录")
+    @ApiOperation(httpMethod = "POST", value = "获取患者信息", notes = "获取患者信息")
     public ResultModel<PatientInfo> getPatientInfo(@ApiParam(value="用户名") @RequestParam String patientID){
         return patientService.patientLogin(patientID);
     }

@@ -4,7 +4,9 @@ import com.qt.demo.system.constant.response.ResultModel;
 import com.qt.demo.system.constant.utils.StringUtils;
 import com.qt.demo.system.dao.PatientInfoMapper;
 import com.qt.demo.system.entity.PatientInfo;
+import com.qt.demo.system.entity.User;
 import com.qt.demo.system.service.PatientService;
+import com.qt.demo.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ public class PatientServiceImpl implements PatientService {
 
     @Autowired
     PatientInfoMapper patientInfoMapper;
+
+    @Autowired
+    UserService userService;
 
     private boolean checkPatientExist(String patientID) {
         PatientInfo patient = this.getPatientInfo(patientID);
@@ -33,11 +38,20 @@ public class PatientServiceImpl implements PatientService {
         } else {
             try {
                 patientInfoMapper.createPerson(patientInfo);
+                registerPatientUser(patientInfo.getPatientID());
+
                 return result.sendSuccessResult("Creating patient successfully");
             } catch (Exception e) {
                 return result.sendFailedMessage(e.getMessage());
             }
         }
+    }
+
+    private void registerPatientUser(String patientID) {
+        User user = new User();
+        user.setUsername(patientID);
+        user.setPassword("123456");
+        userService.save(user, false);
     }
 
     @Override

@@ -24,9 +24,15 @@ public class UserServiceImpl implements UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Override
-    public void save(User user) {
+    public void save(User user, boolean isAdmin) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userMapper.createUser(user);
+        if(isAdmin) {
+            userMapper.createUserRole(user.getUsername(), "ADMIN");
+            userMapper.createUserRole(user.getUsername(), "PATIENT");
+        } else {
+            userMapper.createUserRole(user.getUsername(), "PATIENT");
+        }
     }
 
     @Override

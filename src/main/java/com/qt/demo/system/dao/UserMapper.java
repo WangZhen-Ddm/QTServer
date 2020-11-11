@@ -24,4 +24,7 @@ public interface UserMapper {
 
     @Select("select * from db_user_role where username = #{username}")
     List<UserRole> getUserRoleByUserName(String username);
+
+    @Insert("insert into db_user_role (username, role) values (#{username}, #{role})")
+    void createUserRole(String username, String role);
 }
