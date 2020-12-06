@@ -1,6 +1,7 @@
 package com.qt.demo.system.service;
 
 import com.qt.demo.system.constant.response.ResultModel;
+import com.qt.demo.system.entity.Report;
 import com.qt.demo.system.entity.UricAcid;
 
 import java.util.List;
@@ -14,4 +15,12 @@ public interface UricAcidService {
     ResultModel<String> createUricAcidRecords(List<UricAcid> uricAcidList);
 
     ResultModel<List<UricAcid>> getUricAcidRecordsByTimeGap(String patientID, String startTime, String endTime);
+
+    ResultModel<UricAcid> getLatestUa(String patientID);
+
+    ResultModel<Integer> createUricAcidRecord(UricAcid uricAcid);
+
+    ResultModel<Report> getWeekUricAcidReport(String patientID);
+
+    ResultModel<Report> getMonthUricAcidReport(String patientID);
 }

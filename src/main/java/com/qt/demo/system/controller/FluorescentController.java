@@ -2,9 +2,12 @@ package com.qt.demo.system.controller;
 
 import com.qt.demo.system.constant.response.ResultModel;
 import com.qt.demo.system.entity.Fluorescent;
+import com.qt.demo.system.entity.Report;
+import com.qt.demo.system.entity.Tip;
 import com.qt.demo.system.service.FluorescentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,5 +37,12 @@ public class FluorescentController {
                                                                         @RequestParam String startTime,
                                                                         @RequestParam String endTime) {
         return fluorescentService.getFluorescentRecordsByTimeGap(patientID, startTime, endTime);
+    }
+
+    @PostMapping("/get/tips")
+    @ApiOperation(httpMethod = "POST", value = "获取最近建议", notes = "")
+    public ResultModel<List<Tip>> getTips(@ApiParam(value="用户名") @RequestParam String patientID,
+                                          @ApiParam(value="尿蛋白") @RequestParam Double up) {
+        return fluorescentService.getTips(up, patientID);
     }
 }

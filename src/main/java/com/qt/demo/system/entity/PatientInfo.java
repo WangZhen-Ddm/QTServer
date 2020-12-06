@@ -17,17 +17,17 @@ public class PatientInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String patientID;
 
     private String name;
 
-    private int age;
+    private Integer age;
 
-    private int height;
+    private Integer height;
 
-    private int weight;
+    private Integer weight;
 
     private String sex;
 
@@ -44,5 +44,17 @@ public class PatientInfo {
     private String drinkHistory;
 
     private String password;
+
+    private String sports;
+
+    private Integer dmType;
+
+    private Integer goutType;
+
+    private String idCard;
+
+    private String phoneNumber;
+
+    private Integer status;
 
 }

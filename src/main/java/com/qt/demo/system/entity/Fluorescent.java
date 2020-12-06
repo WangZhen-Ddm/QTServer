@@ -1,6 +1,5 @@
 package com.qt.demo.system.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -14,9 +13,11 @@ public class Fluorescent {
 
     private int id;
 
-    private int patientID;
+    private String patientID;
 
     private String fluorescent;
+
+    private Double up;
 
     private Date measureDateTime;
 }

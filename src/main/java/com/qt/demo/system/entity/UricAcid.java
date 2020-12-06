@@ -1,6 +1,5 @@
 package com.qt.demo.system.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -14,10 +13,9 @@ public class UricAcid {
 
     private int id;
 
-    private int patientID;
+    private String patientID;
 
     private double uricAcid;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd hh:mm:ss")
     private Date measureDateTime;
 }
