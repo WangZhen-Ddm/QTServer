@@ -62,4 +62,11 @@ public class DmController {
         return dmService.getOgttTestResult(ogtt);
     }
 
+    @PostMapping("/get/by/time/point")
+    @ApiOperation(httpMethod = "POST", value = "根据录入时间点获取血糖数据，最多5条", notes = "")
+    public ResultModel<List<Dm>> getDmByTimePoint(@ApiParam(value="用户名") @RequestParam String patientID,
+                                                  @ApiParam(value="时间点") @RequestParam Integer timePoint) {
+        return dmService.getDmByTimePoint(patientID, timePoint);
+    }
+
 }

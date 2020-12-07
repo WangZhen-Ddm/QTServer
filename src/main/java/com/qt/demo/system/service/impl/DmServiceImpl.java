@@ -1,5 +1,6 @@
 package com.qt.demo.system.service.impl;
 
+import com.google.common.collect.Lists;
 import com.qt.demo.system.constant.response.ResultModel;
 import com.qt.demo.system.constant.utils.StringUtils;
 import com.qt.demo.system.dao.DmMapper;
@@ -10,10 +11,7 @@ import com.qt.demo.system.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Wang Zhen
@@ -59,6 +57,21 @@ public class DmServiceImpl implements DmService {
             String date = StringUtils.getPastDate(7);
             String now = StringUtils.getToday();
             List<Dm> dm = dmMapper.getDmFromDate(patientID, date, now);
+            Collections.reverse(dm);
+            return result.sendSuccessResult(dm);
+        } catch (Exception e) {
+            return result.sendFailedMessage(e.getMessage());
+        }
+    }
+
+    @Override
+    public ResultModel<List<Dm>> getDmByTimePoint(String patientID, int timePoint) {
+        ResultModel<List<Dm>> result = new ResultModel<>();
+        try {
+            List<Dm> dm = dmMapper.getDmByTimePoint(patientID, timePoint);
+            if(dm.size()>5) {
+                dm = dm.subList(dm.size()-5, dm.size());
+            }
             return result.sendSuccessResult(dm);
         } catch (Exception e) {
             return result.sendFailedMessage(e.getMessage());

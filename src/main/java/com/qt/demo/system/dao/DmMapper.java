@@ -30,4 +30,7 @@ public interface DmMapper {
 
     @Insert("insert into db_patient_ogtt(patientID, result, risk) values (#{patientID}, #{result}, #{risk})")
     void createOgtt(Ogtt ogtt);
+
+    @Select("select * from db_patient_dm where patientID = #{patientID} and timePoint = #{timePoint}")
+    List<Dm> getDmByTimePoint(String patientID, int timePoint);
 }

@@ -24,4 +24,6 @@ public interface DmService {
     ResultModel<Report> getMonthDmReport(String patientID);
 
     ResultModel<Ogtt> getOgttTestResult(Ogtt ogtt);
+
+    ResultModel<List<Dm>> getDmByTimePoint(String patientID, int timePoint);
 }
