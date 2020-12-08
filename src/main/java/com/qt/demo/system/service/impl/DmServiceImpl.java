@@ -1,11 +1,12 @@
 package com.qt.demo.system.service.impl;
 
-import com.google.common.collect.Lists;
 import com.qt.demo.system.constant.response.ResultModel;
 import com.qt.demo.system.constant.utils.StringUtils;
 import com.qt.demo.system.dao.DmMapper;
 import com.qt.demo.system.dao.TipMapper;
 import com.qt.demo.system.entity.*;
+import com.qt.demo.system.response.TipResponse;
+import com.qt.demo.system.response.Report;
 import com.qt.demo.system.service.DmService;
 import com.qt.demo.system.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -202,16 +203,7 @@ public class DmServiceImpl implements DmService {
             }
             test = needTest(patientInfo);
         }
-        if(patientInfo.getSmokeHistory().equals("是")) {
-            tips.add(tipMapper.getTipByTagAndType(4, 1));
-        }
-        if(patientInfo.getDrinkHistory().equals("是")) {
-            tips.add(tipMapper.getTipByTagAndType(5, 1));
-        }
-        if(getBmi(patientInfo.getHeight(), patientInfo.getWeight())>24) {
-            tips.add(tipMapper.getTipByTagAndType(3, 1));
-        }
-        if(tips.size()==0) tips.add(tipMapper.getTipByTagAndType(0, 0));
+        getCommonTips(tips, patientInfo);
         report.setTips(tips);
         report.setTest(test);
     }
@@ -229,5 +221,42 @@ public class DmServiceImpl implements DmService {
         if(height==0 || weight==0) return res;
         res = (weight * 1.0) / height / height;
         return res;
+    }
+
+    @Override
+    public ResultModel<TipResponse> getTip(String patientID, int timePoint, double dm) {
+        ResultModel<TipResponse> result = new ResultModel<>();
+        try {
+            TipResponse tipResponse = new TipResponse();
+            List<Tip> tips = new ArrayList<>();
+            PatientInfo patientInfo = patientService.getPatientInfo(patientID);
+            int judge = judgeDm(timePoint, dm);
+            if(judge==2) {
+                if(patientInfo.getDmType()==2 || patientInfo.getDmType()==1) {
+                    tips.add(tipMapper.getTipByTagAndType(1, 2));
+                } else {
+                    tips.add(tipMapper.getTipByTagAndType(1, 1));
+                }
+                tipResponse.setNeedTest(needTest(patientInfo));
+            }
+            getCommonTips(tips, patientInfo);
+            tipResponse.setTips(tips);
+            return result.sendSuccessResult(tipResponse);
+        } catch (Exception e) {
+            return result.sendFailedMessage(e);
+        }
+    }
+
+    private void getCommonTips(List<Tip> tips, PatientInfo patientInfo) {
+        if(patientInfo.getSmokeHistory().equals("是")) {
+            tips.add(tipMapper.getTipByTagAndType(4, 1));
+        }
+        if(patientInfo.getDrinkHistory().equals("是")) {
+            tips.add(tipMapper.getTipByTagAndType(5, 1));
+        }
+        if(getBmi(patientInfo.getHeight(), patientInfo.getWeight())>24) {
+            tips.add(tipMapper.getTipByTagAndType(3, 1));
+        }
+        if(tips.size()==0) tips.add(tipMapper.getTipByTagAndType(0, 0));
     }
 }

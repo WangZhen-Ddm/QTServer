@@ -5,12 +5,13 @@ import com.qt.demo.system.constant.utils.StringUtils;
 import com.qt.demo.system.dao.TipMapper;
 import com.qt.demo.system.dao.UricAcidMapper;
 import com.qt.demo.system.entity.*;
+import com.qt.demo.system.response.Report;
+import com.qt.demo.system.response.TipResponse;
 import com.qt.demo.system.service.PatientService;
 import com.qt.demo.system.service.UricAcidService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,6 +130,18 @@ public class UricAcidServiceImpl implements UricAcidService {
         return report;
     }
 
+    //判断尿酸，0-正常，1-偏低，2-正常
+    private int judgeUricAcid(double ua, PatientInfo patientInfo) {
+        int lowTarget = 149, highTarget = 416;
+        if(patientInfo.getSex().equals("女")) {
+            lowTarget = 89;
+            highTarget = 357;
+        }
+        if(ua<lowTarget) return 1;
+        else if(ua>highTarget) return 2;
+        else return 0;
+    }
+
     public void getTips(Report report, String patientID) {
         PatientInfo patientInfo = patientService.getPatientInfo(patientID);
         List<Tip> tips = new ArrayList<>();
@@ -138,6 +151,39 @@ public class UricAcidServiceImpl implements UricAcidService {
                 tips.add(tipMapper.getTipByTagAndType(2, 1));
             }
         }
+        getCommonTips(tips, patientInfo);
+        report.setTest(test);
+    }
+
+    private double getBmi(int height, int weight) {
+        double res = 0;
+        if(height==0 || weight==0) return res;
+        res = (weight * 1.0) / height / height;
+        return res;
+    }
+
+    @Override
+    public ResultModel<TipResponse> getTip(String patientID, double ua) {
+        ResultModel<TipResponse> result = new ResultModel<>();
+        try {
+            TipResponse tipResponse = new TipResponse();
+            List<Tip> tips = new ArrayList<>();
+            PatientInfo patientInfo = patientService.getPatientInfo(patientID);
+            int judge = judgeUricAcid(ua, patientInfo);
+            if(judge==2) {
+                if(patientInfo.getGoutType()==1) {
+                    tips.add(tipMapper.getTipByTagAndType(2, 1));
+                }
+            }
+            getCommonTips(tips, patientInfo);
+            tipResponse.setTips(tips);
+            return result.sendSuccessResult(tipResponse);
+        } catch (Exception e) {
+            return result.sendFailedMessage(e);
+        }
+    }
+
+    private void getCommonTips(List<Tip> tips, PatientInfo patientInfo) {
         if(patientInfo.getSmokeHistory().equals("是")) {
             tips.add(tipMapper.getTipByTagAndType(4, 1));
         }
@@ -148,14 +194,5 @@ public class UricAcidServiceImpl implements UricAcidService {
             tips.add(tipMapper.getTipByTagAndType(3, 1));
         }
         if(tips.size()==0) tips.add(tipMapper.getTipByTagAndType(0, 0));
-        report.setTips(tips);
-        report.setTest(test);
-    }
-
-    private double getBmi(int height, int weight) {
-        double res = 0;
-        if(height==0 || weight==0) return res;
-        res = (weight * 1.0) / height / height;
-        return res;
     }
 }

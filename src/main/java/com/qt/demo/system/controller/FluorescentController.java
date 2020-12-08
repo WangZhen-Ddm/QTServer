@@ -2,7 +2,6 @@ package com.qt.demo.system.controller;
 
 import com.qt.demo.system.constant.response.ResultModel;
 import com.qt.demo.system.entity.Fluorescent;
-import com.qt.demo.system.entity.Report;
 import com.qt.demo.system.entity.Tip;
 import com.qt.demo.system.service.FluorescentService;
 import io.swagger.annotations.Api;

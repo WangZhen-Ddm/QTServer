@@ -1,5 +1,6 @@
-package com.qt.demo.system.entity;
+package com.qt.demo.system.response;
 
+import com.qt.demo.system.entity.Tip;
 import io.swagger.models.auth.In;
 import lombok.Data;
 

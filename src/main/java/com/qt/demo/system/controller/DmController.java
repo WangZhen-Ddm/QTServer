@@ -2,9 +2,9 @@ package com.qt.demo.system.controller;
 
 import com.qt.demo.system.constant.response.ResultModel;
 import com.qt.demo.system.entity.Dm;
-import com.qt.demo.system.entity.Message;
 import com.qt.demo.system.entity.Ogtt;
-import com.qt.demo.system.entity.Report;
+import com.qt.demo.system.response.TipResponse;
+import com.qt.demo.system.response.Report;
 import com.qt.demo.system.service.DmService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -69,4 +69,11 @@ public class DmController {
         return dmService.getDmByTimePoint(patientID, timePoint);
     }
 
+    @PostMapping("/get/tip/by/dm")
+    @ApiOperation(httpMethod = "POST", value = "根据血糖获取建议", notes = "")
+    public ResultModel<TipResponse> getDmByTimePoint(@ApiParam(value="用户名") @RequestParam String patientID,
+                                                     @ApiParam(value="时间点") @RequestParam Integer timePoint,
+                                                     @ApiParam(value="血糖值") @RequestParam Double dm) {
+        return dmService.getTip(patientID, timePoint, dm);
+    }
 }

@@ -3,7 +3,8 @@ package com.qt.demo.system.service;
 import com.qt.demo.system.constant.response.ResultModel;
 import com.qt.demo.system.entity.Dm;
 import com.qt.demo.system.entity.Ogtt;
-import com.qt.demo.system.entity.Report;
+import com.qt.demo.system.response.TipResponse;
+import com.qt.demo.system.response.Report;
 
 import java.util.List;
 
@@ -26,4 +27,6 @@ public interface DmService {
     ResultModel<Ogtt> getOgttTestResult(Ogtt ogtt);
 
     ResultModel<List<Dm>> getDmByTimePoint(String patientID, int timePoint);
+
+    ResultModel<TipResponse> getTip(String patientID, int timePoint, double dm);
 }

@@ -1,8 +1,9 @@
 package com.qt.demo.system.service;
 
 import com.qt.demo.system.constant.response.ResultModel;
-import com.qt.demo.system.entity.Report;
+import com.qt.demo.system.response.Report;
 import com.qt.demo.system.entity.UricAcid;
+import com.qt.demo.system.response.TipResponse;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface UricAcidService {
     ResultModel<Report> getWeekUricAcidReport(String patientID);
 
     ResultModel<Report> getMonthUricAcidReport(String patientID);
+
+    ResultModel<TipResponse> getTip(String patientID, double ua);
 }

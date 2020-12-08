@@ -1,9 +1,9 @@
 package com.qt.demo.system.controller;
 
 import com.qt.demo.system.constant.response.ResultModel;
-import com.qt.demo.system.entity.Dm;
-import com.qt.demo.system.entity.Report;
+import com.qt.demo.system.response.Report;
 import com.qt.demo.system.entity.UricAcid;
+import com.qt.demo.system.response.TipResponse;
 import com.qt.demo.system.service.UricAcidService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -61,5 +61,12 @@ public class UricAcidController {
     @ApiOperation(httpMethod = "POST", value = "获取最近一月的尿酸数据报告", notes = "")
     public ResultModel<Report> getMonthUricAcidReport(@ApiParam(value="用户名") @RequestParam String patientID) {
         return uricAcidService.getMonthUricAcidReport(patientID);
+    }
+
+    @PostMapping("/get/tip/by/ua")
+    @ApiOperation(httpMethod = "POST", value = "根据血糖获取建议", notes = "")
+    public ResultModel<TipResponse> getUaTip(@ApiParam(value="用户名") @RequestParam String patientID,
+                                             @ApiParam(value="尿酸值") @RequestParam Double ua) {
+        return uricAcidService.getTip(patientID, ua);
     }
 }
