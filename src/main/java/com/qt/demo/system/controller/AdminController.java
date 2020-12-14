@@ -3,10 +3,8 @@ package com.qt.demo.system.controller;
 import com.qt.demo.system.constant.response.ResultModel;
 import com.qt.demo.system.entity.PatientInfo;
 import com.qt.demo.system.service.AdminService;
-import com.qt.demo.system.service.PatientService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

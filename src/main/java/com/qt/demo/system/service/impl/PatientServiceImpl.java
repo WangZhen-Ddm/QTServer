@@ -37,8 +37,8 @@ public class PatientServiceImpl implements PatientService {
             return result.sendFailedMessage("Patient already exists！");
         } else {
             try {
-                patientInfoMapper.createPerson(patientInfo);
                 registerPatientUser(patientInfo.getPatientID());
+                patientInfoMapper.createPerson(patientInfo);
 
                 return result.sendSuccessResult("Creating patient successfully");
             } catch (Exception e) {

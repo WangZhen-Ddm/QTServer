@@ -7,8 +7,6 @@ import com.qt.demo.system.service.KnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.geom.RectangularShape;
-
 /**
  * @author Wang Zhen
  * @date 2020/12/8 5:14 下午
