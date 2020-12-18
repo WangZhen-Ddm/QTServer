@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -45,7 +46,9 @@ public class UricAcidServiceImpl implements UricAcidService {
     public ResultModel<List<UricAcid>> getUricAcidRecordsByTimeGap(String patientID, String startTime, String endTime) {
         ResultModel<List<UricAcid>> result = new ResultModel<>();
         try {
-            return result.sendSuccessResult(uricAcidMapper.getUricAcidRecordsByTimeGap(patientID, startTime, endTime));
+            List<UricAcid> uricAcidList = uricAcidMapper.getUricAcidRecordsByTimeGap(patientID, startTime, endTime);
+            Collections.reverse(uricAcidList);
+            return result.sendSuccessResult(uricAcidList);
         } catch (Exception e) {
             return result.sendFailedMessage(e.getMessage());
         }
